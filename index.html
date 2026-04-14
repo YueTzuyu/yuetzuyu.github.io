@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yuetzuyu | Link in Bio</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400;600&family=Noto+Serif+SC:wght@300;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-teal: #2D8B8B;
+            --color-aqua: #4FB0B0;
+            --color-green: #88C070;
+            --color-deep-blue: #1A2B3C;
+            --color-warm: #E8A87C;
+            --color-bg: #0A121A;
+            --glass-bg: rgba(26, 43, 60, 0.6);
+            --glass-border: rgba(79, 176, 176, 0.3);
+            --font-display: 'Cinzel', serif;
+            --font-body: 'Inter', sans-serif;
+            --font-asian: 'Noto Serif SC', serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--color-bg);
+            color: #E0F2F1;
+            font-family: var(--font-body);
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 40px 20px;
+        }
+
+        /* --- Background Effects --- */
+        .bg-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            background: radial-gradient(circle at 50% 50%, #1A2B3C 0%, #0A121A 100%);
+        }
+
+        /* Misty Mountains Silhouette */
+        .mountains {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40%;
+            background: linear-gradient(to top, rgba(10, 18, 26, 1), transparent);
+            z-index: 1;
+        }
+
+        .mountain-peak {
+            position: absolute;
+            bottom: 0;
+            background: var(--color-deep-blue);
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            opacity: 0.4;
+            filter: blur(2px);
+        }
+
+        /* Bamboo Forest Effect */
+        .bamboo-forest {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0.1;
+            z-index: 0;
+        }
+
+        .bamboo {
+            position: absolute;
+            bottom: -10%;
+            width: 4px;
+            background: linear-gradient(to top, var(--color-teal), transparent);
+            border-radius: 2px;
+        }
+
+        .bamboo::after {
+            content: '';
+            position: absolute;
+            top: 20%;
+            left: -10px;
+            width: 20px;
+            height: 2px;
+            background: var(--color-teal);
+            transform: rotate(-30deg);
+            box-shadow: 0 40px 0 var(--color-teal), 0 80px 0 var(--color-teal);
+        }
+
+        /* Dragon Silhouette (Improved) */
+        .dragon-silhouette {
+            position: absolute;
+            top: 5%;
+            right: -10%;
+            width: 70%;
+            height: 70%;
+            opacity: 0.08;
+            pointer-events: none;
+            transform: rotate(-10deg);
+            filter: blur(1px);
+            color: var(--color-aqua);
+        }
+
+        /* Mist/Fog Animation */
+        .mist {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 200%;
+            height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/fog.png');
+            opacity: 0.15;
+            animation: drift 60s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes drift {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+
+        /* Particles */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            background: var(--color-aqua);
+            border-radius: 50%;
+            opacity: 0.3;
+            filter: blur(1px);
+            animation: float 10s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); opacity: 0.1; }
+            50% { transform: translateY(-100px) translateX(20px); opacity: 0.4; }
+        }
+
+        /* --- Profile Card --- */
+        .container {
+            width: 100%;
+            max-width: 500px;
+            z-index: 10;
+            animation: fadeIn 1.2s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .profile-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at center, rgba(79, 176, 176, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .avatar-container {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 20px;
+            position: relative;
+        }
+
+        .avatar {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--color-aqua);
+            box-shadow: 0 0 20px rgba(79, 176, 176, 0.4);
+            background: var(--color-deep-blue);
+        }
+
+        .avatar-glow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            box-shadow: 0 0 30px var(--color-aqua);
+            opacity: 0.2;
+            animation: pulse 3s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.2; }
+            50% { transform: scale(1.1); opacity: 0.4; }
+        }
+
+        h1 {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            letter-spacing: 2px;
+            color: var(--color-aqua);
+            margin-bottom: 5px;
+            text-shadow: 0 0 10px rgba(79, 176, 176, 0.5);
+        }
+
+        .title-sub {
+            font-family: var(--font-asian);
+            font-size: 1rem;
+            color: var(--color-warm);
+            opacity: 0.8;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .bio {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: rgba(224, 242, 241, 0.8);
+            margin-bottom: 30px;
+        }
+
+        /* --- Links --- */
+        .links-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .link-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(79, 176, 176, 0.2);
+            border-radius: 12px;
+            color: #FFF;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .link-btn:hover {
+            background: rgba(79, 176, 176, 0.15);
+            border-color: var(--color-aqua);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 0 15px rgba(79, 176, 176, 0.3);
+        }
+
+        .link-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: 0.5s;
+        }
+
+        .link-btn:hover::after {
+            left: 100%;
+        }
+
+        /* --- Feed Section --- */
+        .feed-section {
+            text-align: left;
+        }
+
+        .feed-title {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            color: var(--color-aqua);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .feed-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, var(--color-aqua), transparent);
+            opacity: 0.3;
+        }
+
+        .feed-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .post-card {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            padding: 15px;
+            border-left: 3px solid var(--color-teal);
+            transition: transform 0.2s;
+        }
+
+        .post-card:hover {
+            transform: scale(1.02);
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .post-content {
+            font-size: 0.85rem;
+            line-height: 1.5;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 8px;
+            word-break: break-word;
+        }
+
+        .post-date {
+            font-size: 0.7rem;
+            color: var(--color-warm);
+            opacity: 0.7;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .loading, .error {
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9rem;
+            color: var(--color-warm);
+            font-style: italic;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--color-bg);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--color-teal);
+            border-radius: 10px;
+        }
+
+        @media (max-width: 480px) {
+            .profile-card {
+                padding: 30px 20px;
+            }
+            h1 {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-container">
+        <div class="mist"></div>
+        <div class="bamboo-forest" id="bamboo-forest"></div>
+        <div class="particles" id="particles"></div>
+        
+        <!-- Mountains -->
+        <div class="mountain-peak" style="width: 40%; height: 25%; left: -5%; bottom: 0;"></div>
+        <div class="mountain-peak" style="width: 50%; height: 35%; left: 20%; bottom: 0; opacity: 0.3;"></div>
+        <div class="mountain-peak" style="width: 45%; height: 20%; right: -10%; bottom: 0;"></div>
+        <div class="mountains"></div>
+
+        <!-- Dragon Silhouette (SVG) -->
+        <svg class="dragon-silhouette" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <path fill="currentColor" d="M85,30 C80,20 60,15 45,25 C30,35 25,55 35,70 C45,85 65,90 80,80 C95,70 100,45 85,30 M40,40 C42,38 48,38 50,40 M30,60 C25,65 15,75 10,85 C5,95 15,98 25,95 C35,92 45,85 50,75" />
+            <path fill="currentColor" d="M20,20 Q30,10 40,20 T60,20" fill="none" stroke="currentColor" stroke-width="0.5" />
+        </svg>
+    </div>
+
+    <div class="container">
+        <main class="profile-card">
+            <div class="avatar-container">
+                <div class="avatar-glow"></div>
+                <!-- Placeholder avatar using the provided image or a themed one -->
+                <img src="https://picsum.photos/seed/wuxia/200/200" alt="Avatar" class="avatar" id="profile-avatar">
+            </div>
+
+            <h1 id="username">Yuetzuyu</h1>
+            <span class="title-sub">月子瑜 | Wandering Scholar</span>
+            <span style="font-family: var(--font-asian); font-size: 0.8rem; color: var(--color-teal); display: block; margin-bottom: 15px; opacity: 0.6;">"月下独酌，江湖路远"</span>
+            
+            <p class="bio">
+                Navigating the digital rivers and lakes. A seeker of hidden truths, a weaver of code, and a traveler of the mystical realms.
+            </p>
+
+            <div class="links-container">
+                <a href="https://gamerstavern.online/@yuetzuyu" class="link-btn" target="_blank" rel="me noopener noreferrer">
+                    <span>Mastodon Presence</span>
+                </a>
+                <!-- Additional links can be added here -->
+                <a href="#" class="link-btn">
+                    <span>The Scholar's Archive</span>
+                </a>
+            </div>
+
+            <section class="feed-section">
+                <h2 class="feed-title">Latest Echoes</h2>
+                <div id="mastodon-feed" class="feed-container">
+                    <div class="loading">Listening to the winds...</div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // --- Bamboo Forest ---
+        function createBamboo() {
+            const container = document.getElementById('bamboo-forest');
+            const count = 15;
+            for (let i = 0; i < count; i++) {
+                const b = document.createElement('div');
+                b.className = 'bamboo';
+                b.style.left = `${Math.random() * 100}%`;
+                b.style.height = `${Math.random() * 60 + 40}%`;
+                b.style.opacity = Math.random() * 0.5 + 0.2;
+                b.style.animationDelay = `${Math.random() * 2}s`;
+                container.appendChild(b);
+            }
+        }
+        createBamboo();
+
+        // --- Particle System ---
+        function createParticles() {
+            const container = document.getElementById('particles');
+            const count = 20;
+            for (let i = 0; i < count; i++) {
+                const p = document.createElement('div');
+                p.className = 'particle';
+                const size = Math.random() * 4 + 2;
+                p.style.width = `${size}px`;
+                p.style.height = `${size}px`;
+                p.style.left = `${Math.random() * 100}%`;
+                p.style.top = `${Math.random() * 100}%`;
+                p.style.animationDelay = `${Math.random() * 10}s`;
+                p.style.animationDuration = `${Math.random() * 5 + 5}s`;
+                container.appendChild(p);
+            }
+        }
+        createParticles();
+
+        // --- Mastodon Integration ---
+        const MASTODON_HANDLE = 'yuetzuyu';
+        const INSTANCE_URL = 'https://gamerstavern.online';
+
+        async function fetchMastodonFeed() {
+            const feedContainer = document.getElementById('mastodon-feed');
+            
+            try {
+                // 1. Lookup account ID
+                const lookupUrl = `${INSTANCE_URL}/api/v1/accounts/lookup?acct=${MASTODON_HANDLE}`;
+                const accountResponse = await fetch(lookupUrl);
+                
+                if (!accountResponse.ok) throw new Error('Account not found');
+                
+                const accountData = await accountResponse.json();
+                const accountId = accountData.id;
+
+                // Update avatar and username if available
+                if (accountData.avatar) {
+                    document.getElementById('profile-avatar').src = accountData.avatar;
+                }
+                if (accountData.display_name) {
+                    document.getElementById('username').textContent = accountData.display_name;
+                }
+
+                // 2. Fetch statuses
+                const statusesUrl = `${INSTANCE_URL}/api/v1/accounts/${accountId}/statuses?limit=5&exclude_reblogs=true&exclude_replies=true`;
+                const statusesResponse = await fetch(statusesUrl);
+                
+                if (!statusesResponse.ok) throw new Error('Could not fetch statuses');
+                
+                const statuses = await statusesResponse.json();
+
+                if (statuses.length === 0) {
+                    feedContainer.innerHTML = '<div class="loading">The winds are silent... (No posts found)</div>';
+                    return;
+                }
+
+                // 3. Render statuses
+                feedContainer.innerHTML = '';
+                statuses.forEach(status => {
+                    const postCard = document.createElement('div');
+                    postCard.className = 'post-card';
+                    
+                    // Simple HTML stripping for content
+                    const tempDiv = document.createElement('div');
+                    tempDiv.innerHTML = status.content;
+                    const cleanContent = tempDiv.textContent || tempDiv.innerText || "";
+                    
+                    const date = new Date(status.created_at);
+                    const formattedDate = date.toLocaleDateString(undefined, { 
+                        month: 'short', 
+                        day: 'numeric', 
+                        year: 'numeric' 
+                    });
+
+                    postCard.innerHTML = `
+                        <div class="post-content">${cleanContent.substring(0, 150)}${cleanContent.length > 150 ? '...' : ''}</div>
+                        <div class="post-date">${formattedDate}</div>
+                    `;
+                    
+                    // Make card clickable
+                    postCard.style.cursor = 'pointer';
+                    postCard.onclick = () => window.open(status.url, '_blank');
+                    
+                    feedContainer.appendChild(postCard);
+                });
+
+            } catch (error) {
+                console.error('Mastodon Fetch Error:', error);
+                feedContainer.innerHTML = '<div class="error">The connection to the ethereal realm was severed. (Failed to load feed)</div>';
+            }
+        }
+
+        // Initialize feed
+        fetchMastodonFeed();
+    </script>
+</body>
+</html>
